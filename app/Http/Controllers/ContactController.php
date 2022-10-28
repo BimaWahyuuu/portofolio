@@ -59,7 +59,7 @@ class ContactController extends Controller
         //Proses Insert Database
         Kontak::create([
             'siswa_id' => $request->siswa_id,
-            'jenis_id' => 1,
+            'jenis_id' => $request->jenis_id,
             'nama_kontak' => $request->nama_kontak,
             'jenis_kontak' => $request->jenis_kontak,
             'deskripsi' => $request->deskripsi,
