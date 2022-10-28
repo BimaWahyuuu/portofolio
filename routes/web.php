@@ -37,6 +37,7 @@ use App\Http\Controllers\ProjectController;
     Route::get('/mastersiswa/{id_siswa}/hapus',[SiswaController::class , 'hapus'])->name('mastersiswa.hapus')->middleware('auth','admin');
     Route::resource('/mastersiswa', SiswaController::class);
     Route::resource('/mastercontact', ContactController::class);
+    Route::get('admin/mastercontact/{mastercontact}/newcontact', [ContactController::class, 'newcontact'])->name('mastercontact.newcontact'); 
     Route::resource('/masterproject', ProjectController::class); 
     Route::get('admin/masterproject/{masterproject}/newproject', [ProjectController::class, 'newproject'])->name('masterproject.newproject'); 
     Route::post('admin/masterproject/{masterproject}/update', [ProjectController::class, 'ubah'])->name('masterproject.ubah'); 

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Siswa;
+use App\Models\Kontak;
+use File;
 
 class ContactController extends Controller
 {
@@ -13,7 +16,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('MasterContact');
+        $data = Siswa::all('id','nisn','nama');
+        return view('MasterContact',compact('data'));
     }
 
     /**
@@ -26,6 +30,12 @@ class ContactController extends Controller
         return view('master_contact.create');
     }
 
+    public function newcontact($id)
+    {
+        $Siswa = Siswa::find($id);
+        return view ('master_contact.create', compact('Siswa'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -34,7 +44,28 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages=[
+            'required' => ':attribute harus diisi dulu',
+            'min' => ':attribute minimal :min karakter',
+            'max' => ':attribute maksimal :max karakter',
+            'size' => 'file yang diupload maksimal :size'
+        ];
+        $this->validate($request,[
+            'nama_kontak' => 'required',
+            'jenis_kontak' => 'required',
+            'deskripsi' => 'required'
+        ], $messages);
+
+        //Proses Insert Database
+        Kontak::create([
+            'siswa_id' => $request->siswa_id,
+            'jenis_id' => 1,
+            'nama_kontak' => $request->nama_kontak,
+            'jenis_kontak' => $request->jenis_kontak,
+            'deskripsi' => $request->deskripsi,
+        ]);
+
+        return redirect('/mastercontact');
     }
 
     /**
@@ -45,7 +76,9 @@ class ContactController extends Controller
      */
     public function show($id)
     {
-        return view('master_contact.show');
+        $siswa = Siswa::find($id);
+        $kontak = $siswa->kontak;
+        return view('master_contact.show',compact('kontak'));
     }
 
     /**

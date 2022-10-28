@@ -25,15 +25,15 @@
             @csrf
             <input type="hidden" name="siswa_id" value="{{ $Siswa['id']}}">
                 <div class="col-12">
-                  <label for="Nisn" class="form-label">Nama Project</label>
+                  <label for="Namaproject" class="form-label">Nama Project</label>
                   <input type="text" class="form-control" id="Namaproject" name="nama_projek" value="{{ old('nama_projek')}}">
                 </div>
                 <div class="col-12 mb-2">
-                  <label for="Alamat" class="form-label">Deskripsi</label>
+                  <label for="Deskripsi" class="form-label">Deskripsi</label>
                   <input type="text" class="form-control" id="Deskripsi" name="deskripsi" value="{{ old('deskripsi')}}">
                 </div>
                 <div class="col-12">
-                  <label for="About" class="form-label">Tanggal</label>
+                  <label for="Tanggal" class="form-label">Tanggal</label>
                   <input type="date" class="form-control" id="Tanggal" name="tanggal" value="{{ old('tanggal')}}">
                 </div>
                 <div class="col-12">
