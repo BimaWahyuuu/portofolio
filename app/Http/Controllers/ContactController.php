@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
 use App\Models\Kontak;
+use App\Models\Jenis_Kontak;
 use File;
 
 class ContactController extends Controller
@@ -32,8 +33,9 @@ class ContactController extends Controller
 
     public function newcontact($id)
     {
+        $jenis_kontak = Jenis_Kontak::all();
         $Siswa = Siswa::find($id);
-        return view ('master_contact.create', compact('Siswa'));
+        return view ('master_contact.create', compact('Siswa','jenis_kontak'));
     }
 
     /**
@@ -51,7 +53,6 @@ class ContactController extends Controller
             'size' => 'file yang diupload maksimal :size'
         ];
         $this->validate($request,[
-            'nama_kontak' => 'required',
             'jenis_kontak' => 'required',
             'deskripsi' => 'required'
         ], $messages);
@@ -59,9 +60,7 @@ class ContactController extends Controller
         //Proses Insert Database
         Kontak::create([
             'siswa_id' => $request->siswa_id,
-            'jenis_id' => $request->jenis_id,
-            'nama_kontak' => $request->nama_kontak,
-            'jenis_kontak' => $request->jenis_kontak,
+            'jenis_id' => $request->jenis_kontak,
             'deskripsi' => $request->deskripsi,
         ]);
 
@@ -89,7 +88,9 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        return view('master_contact.edit');
+        $jenis_kontak = Jenis_Kontak::all();
+        $kontak = Kontak::find($id);
+        return view('master_contact.edit', compact('kontak','jenis_kontak'));
     }
 
     /**
@@ -113,5 +114,21 @@ class ContactController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ubah(Request $request,$id)
+    {
+        $kontak = Kontak::find($id);
+        $kontak->siswa_id = $request->siswa_id;
+        $kontak->jenis_id = $request->jenis_kontak;
+        $kontak->deskripsi = $request->deskripsi;
+        $kontak->save();
+        return redirect ("/mastercontact");
+    }
+
+    public function hapus($id)
+    {
+        $data=Kontak::find($id)->delete();
+        return redirect('/mastercontact');
     }
 }

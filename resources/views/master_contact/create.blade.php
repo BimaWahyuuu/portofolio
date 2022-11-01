@@ -24,16 +24,15 @@
             <form class="row g-3" method="post" enctype="multipart/form-data" action="{{ route('mastercontact.store') }}">
             @csrf
             <input type="hidden" name="siswa_id" value="{{ $Siswa['id']}}">
-                <div class="col-12">
-                  <label for="Namakontak" class="form-label">Nama Kontak</label>
-                  <input type="text" class="form-control" id="Namakontak" name="nama_kontak" value="{{ old('nama_kontak')}}">
-                </div>
                 <div class="col-12 mb-2">
                   <label for="JenisKontak" class="form-label">Jenis Kontak</label>
                   <select name="jenis_kontak" id="JenisKontak" class="form-select" value="{{ old('jenis_kontak')}}">
-                      <option selected>--</option>
+                      @foreach ($jenis_kontak as $jenis)
+                      <option value="{{ $jenis->id }}"> {{ $jenis->jenis_kontak }} </option>
+                      @endforeach
+                  <!-- <option selected>--</option>
                       <option value="1">1</option>
-                      <option value="2">2</option>
+                      <option value="2">2</option> -->
                   </select>
                 </div>
                 <div class="col-12">

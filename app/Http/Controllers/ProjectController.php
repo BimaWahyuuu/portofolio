@@ -105,7 +105,7 @@ class ProjectController extends Controller
     {
         $projek = Project::find($id);
         // dd($projek);
-        return view("master_project.edit", compact("projek"));
+        return view('master_project.edit', compact('projek'));
 
     }
 
