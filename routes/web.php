@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function (){
     });
     Route::get('/adminn', [DashboardController::class, 'index']);
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    // Route::get('/mastersiswa/{id_siswa}/hapus',[SiswaController::class , 'hapus'])->name('mastersiswa.hapus')->middleware('auth','admin');
+    Route::get('/mastersiswa/{id_siswa}/hapus',[SiswaController::class , 'hapus'])->name('mastersiswa.hapus')->middleware('auth','admin');
     Route::resource('/mastersiswa', SiswaController::class);
     Route::resource('/mastercontact', ContactController::class);
     Route::get('admin/mastercontact/{mastercontact}/newcontact', [ContactController::class, 'newcontact'])->name('mastercontact.newcontact');
