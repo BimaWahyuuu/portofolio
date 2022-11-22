@@ -28,13 +28,13 @@ use App\Http\Controllers\ProjectController;
 // });
 
 //admin
-// Route::middleware('auth')->group(function (){
+Route::middleware('auth')->group(function (){
     Route::get('/adminn', function () {
         return view('adminn.app');
     });
     Route::get('/adminn', [DashboardController::class, 'index']);
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::get('/mastersiswa/{id_siswa}/hapus',[SiswaController::class , 'hapus'])->name('mastersiswa.hapus')->middleware('auth','admin');
+    // Route::get('/mastersiswa/{id_siswa}/hapus',[SiswaController::class , 'hapus'])->name('mastersiswa.hapus')->middleware('auth','admin');
     Route::resource('/mastersiswa', SiswaController::class);
     Route::resource('/mastercontact', ContactController::class);
     Route::get('admin/mastercontact/{mastercontact}/newcontact', [ContactController::class, 'newcontact'])->name('mastercontact.newcontact');
@@ -45,10 +45,10 @@ use App\Http\Controllers\ProjectController;
     Route::post('admin/masterproject/{masterproject}/update', [ProjectController::class, 'ubah'])->name('masterproject.ubah'); 
     Route::get('admin/masterproject/{masterproject}/hapus', [ProjectController::class, 'hapus'])->name('masterproject.hapus');
 
-    // });
+    });
 
 //guest
-// Route::middleware('guest')->group(function (){
+Route::middleware('guest')->group(function (){
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate'])->name('login.auth');
     Route::get('/', function () {
@@ -66,7 +66,7 @@ use App\Http\Controllers\ProjectController;
     Route::get('/contact', function () {
         return view('contact');
     });
-// });
+});
 
 
 
